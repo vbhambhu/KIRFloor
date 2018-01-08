@@ -36,9 +36,7 @@ public class DrawingPanel extends JPanel{
         Graphics2D g2 = (Graphics2D) g;
 
 
-        System.out.println(getSize());
-
-
+       // System.out.println(getSize());
 
         g2.setPaint(Color.decode("#F2F2F2"));
 
@@ -68,8 +66,21 @@ public class DrawingPanel extends JPanel{
 
         for (DrawingShape ds: drawingShape){
             g2.drawRect(ds.getX(), ds.getY(),ds.getWidth(),ds.getHeight());
-
         }
+
+
+        g2.setPaint(Color.BLUE);
+        Stroke dashed = new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{9}, 0);
+        g2.setStroke(dashed);
+        g2.drawRect(50,50,210,110);
+
+
+
+        g2.fillOval(45,45,10,10);
+        g2.fillOval(45,110 + 45,10,10);
+
+        g2.fillOval(210+ 45,45,10,10);
+        g2.fillOval(210+ 45,110 + 45,10,10);
 
 
 
@@ -79,6 +90,14 @@ public class DrawingPanel extends JPanel{
         this.propertyPanel = propertyPanel;
         addEvents();
         repaint();
+    }
+
+
+    public void doSelect(){
+
+
+        repaint();
+
     }
 
 
@@ -111,7 +130,12 @@ public class DrawingPanel extends JPanel{
                     if (rectangle.contains(me.getPoint())) {//check if mouse is clicked within shape
                         System.out.println("Clicked a rectangle");
 
-                        propertyPanel.addPropertyTool(s);
+
+                        System.out.println(s.getId());
+
+
+
+                        //propertyPanel.addPropertyTool(s);
 
 
 
