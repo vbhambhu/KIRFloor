@@ -2,17 +2,22 @@ package kir.ox.ac.uk;
 
 import kir.ox.ac.uk.models.DrawingShape;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DrawingPanel extends JPanel{
+public class DrawingPanel extends JPanel {
 
     private List<DrawingShape> drawingShape;
 
@@ -68,19 +73,28 @@ public class DrawingPanel extends JPanel{
             g2.drawRect(ds.getX(), ds.getY(),ds.getWidth(),ds.getHeight());
         }
 
-
+//
+//        try{
+//            BufferedImage image = ImageIO.read(getClass().getResource("/resources/arrow_right.png"));
+//            g2.drawImage(image, 10, 10, null);
+//        } catch (Exception e){
+//
+//        }
+//
+//
+//
+//
+//
+//
         g2.setPaint(Color.BLUE);
-        Stroke dashed = new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{9}, 0);
-        g2.setStroke(dashed);
-        g2.drawRect(50,50,210,110);
+        //Stroke dashed = new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{9}, 0);
+        //g2.setStroke(dashed);
+        g2.drawRect(50 + 200,80 + 100,10,10);
 
-
-
-        g2.fillOval(45,45,10,10);
-        g2.fillOval(45,110 + 45,10,10);
-
-        g2.fillOval(210+ 45,45,10,10);
-        g2.fillOval(210+ 45,110 + 45,10,10);
+//        g2.fillOval(45,45,10,10);
+//        g2.fillOval(45,110 + 45,10,10);
+//        g2.fillOval(210+ 45,45,10,10);
+//        g2.fillOval(210+ 45,110 + 45,10,10);
 
 
 
@@ -94,10 +108,7 @@ public class DrawingPanel extends JPanel{
 
 
     public void doSelect(){
-
-
         repaint();
-
     }
 
 
@@ -117,24 +128,59 @@ public class DrawingPanel extends JPanel{
 //    }
 
 
+
+    public void mouseReleased(MouseEvent event)
+    {
+        int x = event.getXOnScreen();
+        int y = event.getYOnScreen();
+
+//        if(isPressed)
+//        {
+//            RectangleComponent rc = new RectangleComponent(x, y);
+//            frame.add(rc);
+//            frame.revalidate();
+//            frame.repaint();
+//        }
+    }
+
+
+
     public void addEvents(){
 
         addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent me) {
-                super.mouseClicked(me);
+            public void mouseReleased(MouseEvent event)
+            {
+                System.out.println("Mouse released. x = " + event.getX() + " y = " + event.getY());
+                
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent event) {
+                System.out.println("Mouse entered. x = "
+                        + event.getX() + " y = " + event.getY());
+            }
+
+            @Override
+            public void mouseClicked(MouseEvent e){
+                System.out.println("monsueeeeee");
+            }
+
+            @Override
+            public void mousePressed(MouseEvent me) {
+                super.mousePressed(me);
                 for (DrawingShape s: drawingShape){
+
+
+                    Rectangle right_bottom_corner = new Rectangle(s.getX() + s.getWidth(), s.getY() + s.getHeight(),10,10);
+
+
 
                     Rectangle rectangle = new Rectangle(s.getX(), s.getY(),s.getWidth(),s.getHeight());
 
-                    if (rectangle.contains(me.getPoint())) {//check if mouse is clicked within shape
+                    if (right_bottom_corner.contains(me.getPoint())) {//check if mouse is clicked within shape
                         System.out.println("Clicked a rectangle");
-
-
                         System.out.println(s.getId());
-
-
-
                         //propertyPanel.addPropertyTool(s);
 
 

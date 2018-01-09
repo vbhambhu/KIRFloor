@@ -38,7 +38,7 @@ public class PropertyPanel extends JPanel {
                     drawingShape1.setId(1);
                     drawingShape1.setType("rect");
                     drawingShape1.setX(50);
-                    drawingShape1.setY(50);
+                    drawingShape1.setY(80);
                     drawingShape1.setWidth(200);
                     drawingShape1.setHeight(100);
                     drawingShape.add(drawingShape1);
